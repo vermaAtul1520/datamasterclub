@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Swap point for Phase 2: today this forwards to a Google Apps Script Web
-// App that appends a row to a Google Sheet (LEADS_WEBHOOK_URL). Later this
-// can write to Supabase (or anywhere else) instead — the frontend and
-// validation above never need to change.
+// Swap point for Phase 2: today this forwards { email, source } to a Google
+// Apps Script Web App that appends a row to a Google Sheet
+// (LEADS_WEBHOOK_URL). Later this can write to Supabase (or anywhere else)
+// instead — the frontend and validation above never need to change.
 export async function POST(req: NextRequest) {
   let body: {
     email?: string;
@@ -50,19 +50,15 @@ export async function POST(req: NextRequest) {
     const upstream = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        source: body.source || "landing_page",
-        utm_source: body.utm_source || null,
-        utm_medium: body.utm_medium || null,
-        utm_campaign: body.utm_campaign || null,
-        timestamp: new Date().toISOString(),
-      }),
+      body: JSON.stringify({ email, source: body.source || "website" }),
     });
 
     if (!upstream.ok) {
       throw new Error(`Upstream responded ${upstream.status}`);
     }
+
+    const data = await upstream.json();
+    return NextResponse.json(data);
   } catch (err) {
     console.error("Failed to forward signup to LEADS_WEBHOOK_URL:", err);
     return NextResponse.json(
@@ -70,6 +66,4 @@ export async function POST(req: NextRequest) {
       { status: 502 }
     );
   }
-
-  return NextResponse.json({ ok: true });
 }

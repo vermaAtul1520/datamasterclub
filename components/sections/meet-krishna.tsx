@@ -13,7 +13,7 @@ export function MeetKrishna() {
             alt="Krishna Verma"
             fill
             sizes="(min-width: 1024px) 24rem, 20rem"
-            className="object-cover object-[50%_15%]"
+            className="object-cover object-[38%_18%]"
           />
         </div>
         <div className="flex flex-col gap-5">

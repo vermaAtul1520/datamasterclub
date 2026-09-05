@@ -15,11 +15,11 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Lead capture
 
-The signup form posts to `app/api/subscribe/route.ts`, which forwards
-`{ email, source, utm_source, utm_medium, utm_campaign, timestamp }` as JSON
-to `LEADS_WEBHOOK_URL` — meant to be a Google Apps Script Web App that appends
-a row to a Google Sheet. Until that URL is set, the form correctly shows a
-"not connected yet" error instead of pretending to succeed.
+The signup form posts to `app/api/subscribe/route.ts`, which validates the
+email and checks a honeypot field, then forwards `{ email, source }` as JSON
+to `LEADS_WEBHOOK_URL` — a Google Apps Script Web App that appends a row to
+a Google Sheet. Until that URL is set, the form correctly shows a "not
+connected yet" error instead of pretending to succeed.
 
 **To swap the backend later** (e.g. to Supabase, per the Phase 2 roadmap in
 `info.md`), only the inside of `app/api/subscribe/route.ts` needs to change —
