@@ -22,9 +22,13 @@ export function Navbar() {
         </Link>
         <a
           href="#join"
-          className={cn(buttonVariants({ variant: "default" }), "rounded-lg px-4")}
+          className={cn(
+            buttonVariants({ variant: "default" }),
+            "rounded-lg px-3 transition-transform hover:scale-[1.03] sm:px-4"
+          )}
         >
-          Join the Community
+          <span className="sm:hidden">Join</span>
+          <span className="hidden sm:inline">Join the Community</span>
         </a>
       </div>
     </header>

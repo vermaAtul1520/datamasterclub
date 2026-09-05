@@ -20,7 +20,10 @@ export function ValueCards() {
         {valueCards.map((card, i) => {
           const Icon = icons[i];
           return (
-            <Card key={card.title} className="border-border bg-card/60 ring-0">
+            <Card
+              key={card.title}
+              className="border-border bg-card/60 ring-0 transition-all duration-200 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_0_30px_-12px_rgba(59,130,246,0.5)]"
+            >
               <CardContent className="flex flex-col gap-3 pt-2">
                 <div className="flex size-10 items-center justify-center rounded-lg border border-border bg-background text-primary">
                   <Icon className="size-5" />

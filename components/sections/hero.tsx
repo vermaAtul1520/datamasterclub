@@ -36,7 +36,7 @@ export function Hero() {
               alt="Krishna Verma"
               fill
               sizes="(min-width: 1024px) 32rem, 24rem"
-              className="object-cover object-top"
+              className="object-cover object-[50%_15%]"
               priority
             />
           </div>

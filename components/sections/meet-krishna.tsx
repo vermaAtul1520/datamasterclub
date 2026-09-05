@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import { LogoBadge } from "@/components/logo-badge";
 import { krishnaBio } from "@/lib/site-config";
 
 export function MeetKrishna() {
@@ -12,7 +13,7 @@ export function MeetKrishna() {
             alt="Krishna Verma"
             fill
             sizes="(min-width: 1024px) 24rem, 20rem"
-            className="object-cover object-top"
+            className="object-cover object-[50%_15%]"
           />
         </div>
         <div className="flex flex-col gap-5">
@@ -23,6 +24,14 @@ export function MeetKrishna() {
             {krishnaBio.name}
           </h2>
           <div className="flex flex-wrap gap-2">
+            {krishnaBio.employers.map((employer) => (
+              <LogoBadge
+                key={employer.name}
+                src={employer.logo}
+                alt={employer.name}
+                label={employer.label}
+              />
+            ))}
             {krishnaBio.badges.map((badge) => (
               <Badge key={badge} variant="secondary" className="rounded-full px-3 py-1.5 text-xs">
                 {badge}

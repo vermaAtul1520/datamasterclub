@@ -13,8 +13,8 @@ export const socialLinks = {
 
 export const stats = [
   { label: "Years in data engineering", value: "6+" },
-  { label: "Data Engineer", value: "Lowe's India" },
-  { label: "Previously", value: "Ex-Airtel Digital" },
+  { label: "Data Engineer", value: "Lowe's India", logo: "/logos/lowes.svg" },
+  { label: "Previously", value: "Ex-Airtel Digital", logo: "/logos/airtel.svg" },
   { label: "LinkedIn followers", value: "12.8K+" },
 ];
 
@@ -58,5 +58,11 @@ export const krishnaBio = {
   name: "Krishna Verma",
   role: "Data Engineer @ Lowe's India",
   bio: "Krishna Verma is a Data Engineer at Lowe's India with 6+ years building real-world data systems, previously at Airtel Digital. He works daily with the same tools he teaches — GCP, BigQuery, Kafka, Spark, Databricks, and large-scale ETL. Through Data Master Club, he breaks data engineering and AI down into simple, practical lessons for people at every stage.",
-  badges: ["Data Engineer @ Lowe's India", "Ex-Airtel Digital", "6+ years experience", "Verified"],
+  // Drop the real logo files in public/logos/ (lowes.svg, airtel.svg) — the
+  // badge quietly falls back to text-only until they're there.
+  employers: [
+    { name: "Lowe's India", logo: "/logos/lowes.svg", label: "Data Engineer @ Lowe's India" },
+    { name: "Airtel Digital", logo: "/logos/airtel.svg", label: "Ex-Airtel Digital" },
+  ],
+  badges: ["6+ years experience", "Verified"],
 };

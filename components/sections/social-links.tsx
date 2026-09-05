@@ -39,7 +39,7 @@ export function SocialLinks() {
         <div className="grid gap-4 sm:grid-cols-3">
           {cards.map((card) => (
             <a key={card.name} href={card.href} target="_blank" rel="noopener noreferrer">
-              <Card className="h-full border-border bg-background ring-0 transition-colors hover:border-primary/50">
+              <Card className="group h-full border-border bg-background ring-0 transition-all duration-200 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_30px_-12px_rgba(59,130,246,0.5)]">
                 <CardContent className="flex items-center gap-4 pt-2">
                   <div className="flex size-11 items-center justify-center rounded-lg border border-border bg-card text-primary">
                     <card.icon className="size-5" />
@@ -48,7 +48,7 @@ export function SocialLinks() {
                     <CardTitle>{card.name}</CardTitle>
                     <CardDescription>{card.handle}</CardDescription>
                   </div>
-                  <ArrowUpRight className="size-4 text-muted-foreground" />
+                  <ArrowUpRight className="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
                 </CardContent>
               </Card>
             </a>

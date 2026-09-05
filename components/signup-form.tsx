@@ -123,7 +123,7 @@ export function SignupForm({
         type="submit"
         size="lg"
         disabled={status === "loading"}
-        className="h-11 rounded-xl px-6 text-base"
+        className="h-11 rounded-xl px-6 text-base transition-transform hover:scale-[1.02] active:scale-[0.98]"
       >
         {status === "loading" ? "Joining…" : "Join the Community"}
       </Button>
