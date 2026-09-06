@@ -1,4 +1,5 @@
-import { SignupForm } from "@/components/signup-form";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function CtaBand() {
   return (
@@ -15,7 +16,15 @@ export function CtaBand() {
           Join Data Master Club — free, practical, and taught by someone who
           builds this for a living.
         </p>
-        <SignupForm id="join-footer" className="w-full max-w-lg" />
+        <a
+          href="#get-pdfs"
+          className={cn(
+            buttonVariants({ variant: "default", size: "lg" }),
+            "h-11 rounded-xl px-6 text-base transition-transform hover:scale-[1.02]"
+          )}
+        >
+          Get Free PDFs
+        </a>
       </div>
     </section>
   );

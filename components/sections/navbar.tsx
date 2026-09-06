@@ -21,14 +21,14 @@ export function Navbar() {
           </span>
         </Link>
         <a
-          href="#join"
+          href="#get-pdfs"
           className={cn(
             buttonVariants({ variant: "default" }),
             "rounded-lg px-3 transition-transform hover:scale-[1.03] sm:px-4"
           )}
         >
-          <span className="sm:hidden">Join</span>
-          <span className="hidden sm:inline">Join the Community</span>
+          <span className="sm:hidden">Get PDFs</span>
+          <span className="hidden sm:inline">Get Free PDFs</span>
         </a>
       </div>
     </header>

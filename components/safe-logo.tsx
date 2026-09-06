@@ -10,11 +10,16 @@ export function SafeLogo({
   src,
   alt,
   size = 20,
+  width,
+  height,
   className,
 }: {
   src: string;
   alt: string;
+  /** Square shorthand — ignored if width/height are given. */
   size?: number;
+  width?: number;
+  height?: number;
   className?: string;
 }) {
   const [failed, setFailed] = useState(false);
@@ -24,8 +29,8 @@ export function SafeLogo({
     <Image
       src={src}
       alt={alt}
-      width={size}
-      height={size}
+      width={width ?? size}
+      height={height ?? size}
       className={cn("shrink-0 object-contain", className)}
       onError={() => setFailed(true)}
     />

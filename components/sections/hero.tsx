@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { SignupForm } from "@/components/signup-form";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function Hero() {
   return (
@@ -24,10 +25,20 @@ export function Hero() {
             India. Join the community to learn alongside people at every
             stage.
           </p>
-          <SignupForm id="join" className="max-w-lg" />
-          <p className="text-xs text-muted-foreground">
-            Free to join. No spam — just practical lessons and updates.
-          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <a
+              href="#get-pdfs"
+              className={cn(
+                buttonVariants({ variant: "default", size: "lg" }),
+                "h-11 rounded-xl px-6 text-base transition-transform hover:scale-[1.02]"
+              )}
+            >
+              Get Free PDFs
+            </a>
+            <p className="text-xs text-muted-foreground">
+              Free, always. No paywall on the fundamentals.
+            </p>
+          </div>
         </div>
         <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
           <div className="glow-ring relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-border bg-card">

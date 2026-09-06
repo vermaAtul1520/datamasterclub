@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/sections/navbar";
 import { Hero } from "@/components/sections/hero";
 import { StatsBand } from "@/components/sections/stats-band";
+import { GetPdfSection } from "@/components/sections/get-pdf-section";
 import { ValueCards } from "@/components/sections/value-cards";
 import { TopicsGrid } from "@/components/sections/topics-grid";
 import { MeetKrishna } from "@/components/sections/meet-krishna";
@@ -16,6 +17,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <StatsBand />
+        <GetPdfSection />
         <ValueCards />
         <TopicsGrid />
         <MeetKrishna />

@@ -30,6 +30,8 @@ export function MeetKrishna() {
                 src={employer.logo}
                 alt={employer.name}
                 label={employer.label}
+                width={employer.logoWidth}
+                height={employer.logoHeight}
               />
             ))}
             {krishnaBio.badges.map((badge) => (

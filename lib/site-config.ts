@@ -5,6 +5,23 @@ export const siteConfig = {
     process.env.NEXT_PUBLIC_COMMUNITY_INVITE_URL || "#",
 };
 
+export const upiSupport = {
+  payeeId: "krishnaverma2281@okhdfcbank",
+  payeeName: "Krishna Verma",
+  suggestedAmounts: [9, 49, 99],
+  qrImage: "/upi-qr.png",
+};
+
+export function buildUpiLink(amount?: number) {
+  const params = new URLSearchParams({
+    pa: upiSupport.payeeId,
+    pn: upiSupport.payeeName,
+    cu: "INR",
+  });
+  if (amount) params.set("am", String(amount));
+  return `upi://pay?${params.toString()}`;
+}
+
 export const socialLinks = {
   linkedin: "https://www.linkedin.com/in/krishna-verma-3989a4171",
   instagram: "https://www.instagram.com/datamasterclub",
@@ -13,8 +30,20 @@ export const socialLinks = {
 
 export const stats = [
   { label: "Years in data engineering", value: "6+" },
-  { label: "Data Engineer", value: "Lowe's India", logo: "/logos/lowes.svg" },
-  { label: "Previously", value: "Ex-Airtel Digital", logo: "/logos/airtel.svg" },
+  {
+    label: "Data Engineer",
+    value: "Lowe's India",
+    logo: "/logos/lowes.svg",
+    logoWidth: 47, // lowes.svg is a ~2.12:1 wide mark — keep its real aspect ratio
+    logoHeight: 22,
+  },
+  {
+    label: "Previously",
+    value: "Ex-Airtel Digital",
+    logo: "/logos/airtel.svg",
+    logoWidth: 22,
+    logoHeight: 22,
+  },
   { label: "LinkedIn followers", value: "12.8K+" },
 ];
 
@@ -61,8 +90,20 @@ export const krishnaBio = {
   // Drop the real logo files in public/logos/ (lowes.svg, airtel.svg) — the
   // badge quietly falls back to text-only until they're there.
   employers: [
-    { name: "Lowe's India", logo: "/logos/lowes.svg", label: "Data Engineer @ Lowe's India" },
-    { name: "Airtel Digital", logo: "/logos/airtel.svg", label: "Ex-Airtel Digital" },
+    {
+      name: "Lowe's India",
+      logo: "/logos/lowes.svg",
+      label: "Data Engineer @ Lowe's India",
+      logoWidth: 34, // lowes.svg is a ~2.12:1 wide mark — keep its real aspect ratio
+      logoHeight: 16,
+    },
+    {
+      name: "Airtel Digital",
+      logo: "/logos/airtel.svg",
+      label: "Ex-Airtel Digital",
+      logoWidth: 16,
+      logoHeight: 16,
+    },
   ],
   badges: ["6+ years experience", "Verified"],
 };

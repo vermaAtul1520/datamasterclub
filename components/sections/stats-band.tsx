@@ -9,7 +9,12 @@ export function StatsBand() {
           <div key={stat.label} className="flex flex-col gap-1 text-center md:text-left">
             <span className="flex items-center justify-center gap-2 font-heading text-2xl font-semibold text-foreground sm:text-3xl md:justify-start">
               {"logo" in stat && stat.logo && (
-                <SafeLogo src={stat.logo} alt={stat.value} size={22} />
+                <SafeLogo
+                  src={stat.logo}
+                  alt={stat.value}
+                  width={stat.logoWidth}
+                  height={stat.logoHeight}
+                />
               )}
               {stat.value}
             </span>

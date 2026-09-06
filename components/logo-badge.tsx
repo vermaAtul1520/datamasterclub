@@ -8,11 +8,15 @@ export function LogoBadge({
   src,
   alt,
   label,
+  width = 16,
+  height = 16,
   className,
 }: {
   src: string;
   alt: string;
   label: string;
+  width?: number;
+  height?: number;
   className?: string;
 }) {
   return (
@@ -22,7 +26,7 @@ export function LogoBadge({
         className
       )}
     >
-      <SafeLogo src={src} alt={alt} size={16} className="size-4" />
+      <SafeLogo src={src} alt={alt} width={width} height={height} />
       <span>{label}</span>
     </div>
   );
