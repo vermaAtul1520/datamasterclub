@@ -44,7 +44,7 @@ export const stats = [
     logoWidth: 22,
     logoHeight: 22,
   },
-  { label: "LinkedIn followers", value: "12.8K+" },
+  { label: "LinkedIn followers", value: "13K+" },
 ];
 
 export const valueCards = [

@@ -22,7 +22,7 @@ Built on a stack that **scales into a full platform later** (courses, PDF sales,
 
 - **Lead with both** the brand and the person: *Data Master Club* is the identity, *Krishna Verma* is the trusted face behind it. His photo and voice carry credibility; the Club name carries recall.
 - **What he teaches:** data engineering, AI, analytics — Spark, Databricks, SQL, GCP/BigQuery, Kafka, and data pipelines — explained in a simple, practical, real-world way. (From his YouTube: *Open Data Insights by Krishna*.)
-- **Who he is (the credibility engine):** Data Engineer @ **Lowe's India**, **Ex-Airtel Digital**, **6+ years** in software & data engineering, ✓ verified, **12.8K+ LinkedIn followers**. He teaches the exact tools he uses at work every day. This is the trust anchor for the whole page.
+- **Who he is (the credibility engine):** Data Engineer @ **Lowe's India**, **Ex-Airtel Digital**, **6+ years** in software & data engineering, ✓ verified, **13K+ LinkedIn followers**. He teaches the exact tools he uses at work every day. This is the trust anchor for the whole page.
 - **One-line positioning to build copy around:** *Practical, real-world data & AI skills — taught by an engineer who does it daily.*
 
 ## 3. Target Audience
