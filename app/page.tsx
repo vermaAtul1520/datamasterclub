@@ -9,10 +9,13 @@ import { SocialLinks } from "@/components/sections/social-links";
 import { TestimonialsPlaceholder } from "@/components/sections/testimonials-placeholder";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Footer } from "@/components/sections/footer";
+import { InstagramShowcase } from "@/components/sections/instagram-showcase";
+import { SourceBanner } from "@/components/source-banner";
 
 export default function Home() {
   return (
     <>
+      <SourceBanner />
       <Navbar />
       <main className="flex-1">
         <Hero />
@@ -21,6 +24,7 @@ export default function Home() {
         <ValueCards />
         <TopicsGrid />
         <MeetKrishna />
+        <InstagramShowcase />
         <SocialLinks />
         <TestimonialsPlaceholder />
         <CtaBand />

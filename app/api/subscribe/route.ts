@@ -5,11 +5,20 @@ import { isValidEmail } from "@/lib/validate-email";
 // serverless function itself gets killed.
 export const maxDuration = 30;
 
+// Keeps whatever the browser sends from bloating a sheet cell.
+function clip(value: unknown, max = 200): string {
+  return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+
 // Swap point for Phase 2: today this forwards { fullName, email, pdf, note,
-// source, timestamp } to a Google Apps Script Web App that appends a row to
-// a Google Sheet (LEADS_WEBHOOK_URL). Later this can write to Supabase (or
-// anywhere else) instead — the frontend and validation above never need to
-// change.
+// source, utm_*, referrer, landingPath, timestamp } to a Google Apps Script
+// Web App that appends a row to a Google Sheet (LEADS_WEBHOOK_URL). Later
+// this can write to Supabase (or anywhere else) instead — the frontend and
+// validation above never need to change.
+//
+// Note for the Apps Script: the new attribution fields (utm_source,
+// utm_medium, utm_campaign, referrer, landingPath) are extra keys — add
+// columns for them in the sheet to keep them, or the script ignores them.
 export async function POST(req: NextRequest) {
   let body: {
     fullName?: string;
@@ -18,6 +27,11 @@ export async function POST(req: NextRequest) {
     note?: string;
     company?: string; // honeypot field
     source?: string;
+    utm_source?: string;
+    utm_medium?: string;
+    utm_campaign?: string;
+    referrer?: string;
+    landingPath?: string;
   };
 
   try {
@@ -74,7 +88,12 @@ export async function POST(req: NextRequest) {
         email,
         pdf,
         note: body.note?.trim() || "",
-        source: body.source || "website",
+        source: clip(body.source, 40) || "website",
+        utm_source: clip(body.utm_source, 100),
+        utm_medium: clip(body.utm_medium, 100),
+        utm_campaign: clip(body.utm_campaign, 100),
+        referrer: clip(body.referrer, 300),
+        landingPath: clip(body.landingPath, 300),
         timestamp: new Date().toISOString(),
       }),
       // Guards against an Apps Script cold-start/hang leaving the request

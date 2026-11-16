@@ -3,8 +3,9 @@
 import { useState, type FormEvent, type FocusEvent } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/lib/site-config";
 import { isValidEmail } from "@/lib/validate-email";
+import { captureAttribution, useAttribution } from "@/lib/traffic-source";
+import { ThankYouPanel } from "@/components/thank-you-panel";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -12,6 +13,8 @@ export function GetPdfForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [requestedPdf, setRequestedPdf] = useState("");
+  const attribution = useAttribution();
 
   function handleEmailBlur(e: FocusEvent<HTMLInputElement>) {
     const value = e.target.value.trim();
@@ -35,6 +38,8 @@ export function GetPdfForm() {
     setStatus("loading");
 
     const honeypot = data.get("dmc_hp")?.toString() || "";
+    const pdf = data.get("pdf")?.toString().trim() || "";
+    const attr = attribution ?? captureAttribution();
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
@@ -46,10 +51,15 @@ export function GetPdfForm() {
         body: JSON.stringify({
           fullName: data.get("fullName"),
           email,
-          pdf: data.get("pdf"),
+          pdf,
           note: data.get("note"),
           company: honeypot,
-          source: typeof window !== "undefined" ? window.location.pathname : undefined,
+          source: attr.source,
+          utm_source: attr.utm_source,
+          utm_medium: attr.utm_medium,
+          utm_campaign: attr.utm_campaign,
+          referrer: attr.referrer,
+          landingPath: attr.landingPath,
         }),
         signal: controller.signal,
       });
@@ -62,6 +72,7 @@ export function GetPdfForm() {
         return;
       }
 
+      setRequestedPdf(pdf);
       setStatus("success");
       form.reset();
     } catch (err) {
@@ -77,25 +88,7 @@ export function GetPdfForm() {
   }
 
   if (status === "success") {
-    return (
-      <div className="flex flex-col items-start gap-3 rounded-2xl border border-border bg-card/60 p-6">
-        <p className="font-heading text-lg font-medium text-foreground">
-          You&apos;re in! 🎉
-        </p>
-        <p className="text-sm text-muted-foreground">
-          Check your email shortly for the PDF. Want updates first? Join the
-          community too.
-        </p>
-        <a
-          href={siteConfig.communityInviteUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm font-medium text-primary hover:underline"
-        >
-          Join the community →
-        </a>
-      </div>
-    );
+    return <ThankYouPanel pdf={requestedPdf} source={attribution?.source ?? "direct"} />;
   }
 
   return (
