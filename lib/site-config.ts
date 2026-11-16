@@ -3,6 +3,9 @@ export const siteConfig = {
   tagline: "Practical, real-world data & AI skills — taught by an engineer who does it daily.",
   communityInviteUrl:
     process.env.NEXT_PUBLIC_COMMUNITY_INVITE_URL || "#",
+  // Used inside LinkedIn shout-out text, so it must be the real public domain
+  // in production (set NEXT_PUBLIC_SITE_URL).
+  publicUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
 };
 
 export const upiSupport = {
@@ -26,6 +29,55 @@ export const socialLinks = {
   linkedin: "https://www.linkedin.com/in/krishna-verma-3989a4171",
   instagram: "https://www.instagram.com/datamasterclub",
   youtube: "https://youtube.com/@opendatainsightsbykrishna",
+};
+
+// Instagram showcase shown to visitors (especially those arriving from
+// LinkedIn). Posts render via Instagram's official embed, curated by hand:
+//   - followers: fill in the real count (hidden while empty — never guess it)
+//   - posts: paste real post/reel URLs (instagram.com/p/<id>/ or /reel/<id>/)
+export const instagramShowcase = {
+  handle: "@datamasterclub",
+  followers: "6.6K+", // 6,650 as of 2026-11-16 — update as it grows
+  pitch:
+    "Hand-written notes on SQL, Python, AWS, data engineering and agentic AI. Comment the keyword on any post and the full PDF lands in your DMs — free.",
+  //   - visual: built-in topic graphic shown while the embed loads (or if it's blocked)
+  //   - keyword: the "Comment X to get the PDF" word from the post caption
+  posts: [
+    {
+      title: "50 SQL functions every data engineer should know",
+      tag: "SQL",
+      keyword: "sqlfunctions",
+      href: "https://www.instagram.com/p/DcU83P1E7DW/",
+      visual: "sql",
+    },
+    {
+      title: "Agentic AI in 15 simple steps",
+      tag: "Agentic AI",
+      keyword: "Agentic",
+      href: "https://www.instagram.com/p/DfuUSYuE-tt/",
+      visual: "agent",
+    },
+    {
+      title: "15 SQL time-series interview questions",
+      tag: "SQL",
+      keyword: "Time",
+      href: "https://www.instagram.com/p/Dfml94kE9j7/",
+      visual: "timeseries",
+    },
+    {
+      title: "25 AWS EMR questions for data engineers",
+      tag: "AWS",
+      keyword: "EMR",
+      href: "https://www.instagram.com/p/DfhcWryFHC-/",
+      visual: "cluster",
+    },
+  ] as {
+    title: string;
+    tag: string;
+    keyword?: string;
+    href: string;
+    visual?: "sql" | "pipeline" | "snowflake" | "agent" | "timeseries" | "cluster";
+  }[],
 };
 
 export const stats = [
