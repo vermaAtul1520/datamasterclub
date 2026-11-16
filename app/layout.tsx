@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -11,21 +11,30 @@ const title =
 const description =
   "Data Master Club is Krishna Verma's community for learning real-world data engineering and AI — SQL, Python, GCP & BigQuery, Kafka, Spark, Databricks, and ETL, taught by a working Data Engineer at Lowe's India.";
 
-const heading = Space_Grotesk({
+// Fonts are self-hosted from @fontsource-variable packages instead of
+// next/font/google: Google's loader downloads the fonts at build time, and a
+// failed download breaks the Turbopack build ("Can't resolve
+// '@vercel/turbopack-next/internal/font/google/font'"). Local files make
+// builds independent of the network. Variable fonts = one file per family.
+const heading = localFont({
+  src: "../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2",
   variable: "--font-heading",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: "300 700",
+  display: "swap",
 });
 
-const body = Inter({
+const body = localFont({
+  src: "../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
   variable: "--font-body",
-  subsets: ["latin"],
+  weight: "100 900",
+  display: "swap",
 });
 
-const mono = JetBrains_Mono({
+const mono = localFont({
+  src: "../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2",
   variable: "--font-mono-brand",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: "100 800",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
