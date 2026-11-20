@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, type FormEvent, type FocusEvent } from "react";
+import { useRef, useState, type FormEvent, type FocusEvent } from "react";
+import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { isValidEmail } from "@/lib/validate-email";
 import { captureAttribution, useAttribution } from "@/lib/traffic-source";
 import { ThankYouPanel } from "@/components/thank-you-panel";
+import { TopicPicker } from "@/components/topic-picker";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -14,6 +16,8 @@ export function GetPdfForm() {
   const [message, setMessage] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [requestedPdf, setRequestedPdf] = useState("");
+  const [topics, setTopics] = useState<string[]>([]);
+  const submittingRef = useRef(false); // sync guard: state updates are async, so a fast double-click/Enter could slip through
   const attribution = useAttribution();
 
   function handleEmailBlur(e: FocusEvent<HTMLInputElement>) {
@@ -23,6 +27,7 @@ export function GetPdfForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (submittingRef.current) return;
     setMessage(null);
 
     const form = e.currentTarget;
@@ -35,10 +40,17 @@ export function GetPdfForm() {
       return;
     }
     setEmailError(null);
+
+    const pdf = topics.join(", ");
+    if (!pdf) {
+      setStatus("error");
+      setMessage("Pick at least one PDF topic.");
+      return;
+    }
+    submittingRef.current = true;
     setStatus("loading");
 
     const honeypot = data.get("dmc_hp")?.toString() || "";
-    const pdf = data.get("pdf")?.toString().trim() || "";
     const attr = attribution ?? captureAttribution();
 
     const controller = new AbortController();
@@ -75,6 +87,7 @@ export function GetPdfForm() {
       setRequestedPdf(pdf);
       setStatus("success");
       form.reset();
+      setTopics([]);
     } catch (err) {
       setStatus("error");
       setMessage(
@@ -84,6 +97,7 @@ export function GetPdfForm() {
       );
     } finally {
       clearTimeout(timeout);
+      submittingRef.current = false;
     }
   }
 
@@ -127,15 +141,9 @@ export function GetPdfForm() {
       <div>
         <label htmlFor="pdf" className="mb-1.5 block text-sm text-muted-foreground">
           Which PDF would you like?{" "}
-          <span className="text-xs">(e.g. SQL, Window Functions, Python, NumPy)</span>
+          <span className="text-xs">(type to search, pick one or more)</span>
         </label>
-        <Input
-          id="pdf"
-          name="pdf"
-          required
-          placeholder="SQL, Window Functions, Python..."
-          className="h-11 rounded-xl border-border bg-background/60 px-4 text-base"
-        />
+        <TopicPicker id="pdf" selected={topics} onChange={setTopics} />
       </div>
 
       <div>
@@ -174,9 +182,17 @@ export function GetPdfForm() {
         type="submit"
         size="lg"
         disabled={status === "loading"}
+        aria-busy={status === "loading"}
         className="h-11 rounded-xl text-base transition-transform hover:scale-[1.02] active:scale-[0.98]"
       >
-        {status === "loading" ? "Sending…" : "Get Free PDFs"}
+        {status === "loading" ? (
+          <>
+            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+            Sending…
+          </>
+        ) : (
+          "Get Free PDFs"
+        )}
       </Button>
     </form>
   );

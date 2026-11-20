@@ -95,6 +95,9 @@ export async function POST(req: NextRequest) {
         referrer: clip(body.referrer, 300),
         landingPath: clip(body.landingPath, 300),
         timestamp: new Date().toISOString(),
+        // Shared secret checked by the Apps Script. Read server-side only
+        // (never NEXT_PUBLIC_) so it can't leak into the browser bundle.
+        token: process.env.SECRET || "",
       }),
       // Guards against an Apps Script cold-start/hang leaving the request
       // (and the user's "Sending…" state) open indefinitely.
