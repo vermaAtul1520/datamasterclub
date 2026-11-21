@@ -11,7 +11,7 @@ export const siteConfig = {
 export const upiSupport = {
   payeeId: "krishnaverma2281@okhdfcbank",
   payeeName: "Krishna Verma",
-  suggestedAmounts: [9, 49, 99],
+  suggestedAmounts: [49, 99, 199],
   qrImage: "/upi-qr.png",
 };
 
